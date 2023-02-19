@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		#AffirmationsContent   {
+			color: black;
+			font-family: Sans-serif;
+			text-align:center;
+			background-color:beige;
+			border-radius: 25px;
+  			border: 2px solid #0000;
+		}
+	</style>
+</head>
+<body>
+	<h1 id="AffirmationsContent">
+	</h1>
+</body>
+<script>
+	// READ PREPARED FILE
+	  const fileUrl = 'FILEURL'; //real URL removed for data security purposes.
+	  const xhr = new XMLHttpRequest();
+	  xhr.open('GET', fileUrl, true);
+	  // SELECT AFFIRMATION BASED ON DAY OF YEAR
+	  xhr.onreadystatechange = function() {
+		  if (xhr.readyState === 4 && xhr.status === 200) {
+			// Handle the response
+			const fileContent = xhr.responseText.split('\n');
+			const today = new Date();
+			const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+			const dailyAffirmation = fileContent[dayOfYear];
+    
+    // Display the file content on an HTML page
+    const contentDiv = document.getElementById('AffirmationsContent');
+    contentDiv.innerHTML = dailyAffirmation;
+		  }
+		};
+	xhr.send();
+</script>
+
+</html>
